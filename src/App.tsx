@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from 'react';
+import { AppTheme } from 'react-app-env';
 
-function App() {
+import { ThemeProvider } from 'styled-components';
+import { Theme, GlobalStyle } from 'styles';
+
+import Settings from 'model/Settings';
+
+import AppContext from 'AppContext';
+import Router from 'Router';
+
+export default function () {
+  const [theme, setTheme] = useState<AppTheme>(Settings.theme);
+
+  const switchTheme = useCallback((value: AppTheme) => {
+    setTheme(value);
+    Settings.theme = value;
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{ theme, switchTheme }}>
+      <ThemeProvider theme={Theme[theme]}>
+        <GlobalStyle />
+        <Router />
+      </ThemeProvider>
+    </AppContext.Provider>
   );
 }
-
-export default App;
