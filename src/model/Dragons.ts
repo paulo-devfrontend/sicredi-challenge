@@ -35,6 +35,10 @@ class DragonsModel {
       return 0;
     });
   }
+
+  public byId(id: string) {
+    return this.data.find(dragon => dragon.id === id);
+  }
 }
 
 export default new DragonsModel();

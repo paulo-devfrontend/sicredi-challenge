@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MdDeleteForever, MdEdit } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
 import { TextButton, IconButton } from 'components/Button';
 import {
@@ -29,6 +30,7 @@ import {
 } from './style';
 
 export default function () {
+  const history = useHistory();
   const { tooltip } = useTooltip();
   const [list, setList] = useState<DragonList>(Dragons.list());
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -72,7 +74,11 @@ export default function () {
                 <CardSubhead>{dragon.type}</CardSubhead>
               </CardHeadline>
               <CardActions>
-                <TextButton>Detail</TextButton>
+                <TextButton
+                  onClick={() => history.push(`/detail/${dragon.id}`)}
+                >
+                  Detail
+                </TextButton>
                 <CardActionsIcon>
                   <IconButton ref={tooltip('Edit')}>
                     <MdEdit />

@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { MdBrightness4, MdAccountCircle } from 'react-icons/md';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { MdBrightness4, MdAccountCircle, MdArrowBack } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 
 import { IconButton, OutlinedButton } from 'components/Button';
@@ -8,6 +8,7 @@ import {
   ToolbarContent,
   ToolbarTitle,
   ToolbarActions,
+  NavButton,
 } from 'components/Toolbar';
 
 import Auth from 'model/Auth';
@@ -28,9 +29,10 @@ import {
 interface Props {
   title: string;
   children: React.ReactNode;
+  backButton?: boolean;
 }
 
-export default function ({ title, children }: Props) {
+export default function ({ title, children, backButton }: Props) {
   const { tooltip } = useTooltip();
   const { toggleDarkMode, inDarkMode } = useDarkMode();
   const history = useHistory();
@@ -45,9 +47,22 @@ export default function ({ title, children }: Props) {
     Auth.logout(() => history.push('/login', { from: history.location }));
   }, [history]);
 
+  useEffect(() => {
+    return () =>
+      window.scrollTo({
+        behavior: 'smooth',
+        top: 0,
+      });
+  }, []);
+
   return (
     <Page>
       <Toolbar isFixed>
+        {backButton && (
+          <NavButton onClick={history.goBack}>
+            <MdArrowBack />
+          </NavButton>
+        )}
         <ToolbarContent>
           <ToolbarTitle>{title}</ToolbarTitle>
         </ToolbarContent>

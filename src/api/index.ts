@@ -12,7 +12,7 @@ export interface DragonData {
 }
 
 export interface Dragon extends DragonData {
-  id: number;
+  id: string;
   createdAt: DateJSONString;
 }
 
