@@ -1,5 +1,3 @@
-import { useRef, useEffect } from 'react';
-
 import { easing } from 'styles';
 
 function createElement(tip: string) {
@@ -11,7 +9,7 @@ function createElement(tip: string) {
   tipElement.style.fontSize = '12px';
   tipElement.style.fontWeight = '500';
   tipElement.style.textDecoration = 'none';
-  tipElement.style.position = 'absolute';
+  tipElement.style.position = 'fixed';
   tipElement.textContent = tip;
   tipElement.style.transformOrigin = 'center top';
   tipElement.style.transform = 'scale(0)';
@@ -27,34 +25,36 @@ function alignElement(target: HTMLElement, tipElement: HTMLModElement) {
   tipElement.style.left = `${targetCenter - tipCenter}px`;
 }
 
-export default function (tip: string) {
-  const target = useRef<HTMLButtonElement>(null);
-
-  const handleOver = (tooltip: HTMLModElement) => {
+export default function () {
+  const handleOut = (tipElement: HTMLModElement) => {
     return (e: MouseEvent | FocusEvent) => {
-      alignElement(e.currentTarget as HTMLElement, tooltip);
-      tooltip.style.transform = 'scale(1)';
+      tipElement.style.transform = 'scale(0)';
+      setTimeout(() => tipElement.remove(), 150);
     };
   };
 
-  const handleOut = (tooltip: HTMLModElement) => {
+  const handleOver = (tip: string) => {
     return (e: MouseEvent | FocusEvent) => {
-      tooltip.style.transform = 'scale(0)';
+      const target = e.currentTarget as HTMLElement;
+      const tipElement = createElement(tip);
+      target.parentElement!.appendChild(tipElement);
+      alignElement(target, tipElement);
+      tipElement.style.transform = 'scale(1)';
+      target.addEventListener('mouseout', handleOut(tipElement), {
+        once: true,
+      });
+      target.addEventListener('blur', handleOut(tipElement), { once: true });
     };
   };
 
-  useEffect(() => {
-    const { current } = target;
-    if (current) {
-      const root = current.parentElement!;
-      const tooltip = createElement(tip);
-      root.appendChild(tooltip);
-      current.addEventListener('mouseover', handleOver(tooltip));
-      current.addEventListener('focus', handleOver(tooltip));
-      current.addEventListener('mouseout', handleOut(tooltip));
-      current.addEventListener('blur', handleOut(tooltip));
-    }
-  }, [tip, target]);
+  const tooltip = (tip: string) => {
+    return (instance: HTMLButtonElement) => {
+      if (instance) {
+        instance.addEventListener('mouseover', handleOver(tip));
+        instance.addEventListener('focus', handleOver(tip));
+      }
+    };
+  };
 
-  return target;
+  return { tooltip };
 }

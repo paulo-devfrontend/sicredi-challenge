@@ -12,6 +12,7 @@ const Button = styled.button`
   border-radius: 4px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
   ${typography.button}
 
   &:disabled {
@@ -41,7 +42,6 @@ const Button = styled.button`
 export const ContainedButton = styled(Button)`
   background-color: ${props => props.theme.accent};
   color: white;
-  cursor: pointer;
   transition: box-shadow 150ms ${easing.standard};
   ${shadow(2)}
 
@@ -64,10 +64,12 @@ export const ContainedButton = styled(Button)`
 
 export const OutlinedButton = styled(Button)`
   border: 1px solid ${props => props.theme.focus.surface};
+  color: ${props => props.theme.primaryText};
 `;
 
 export const TextButton = styled(Button)`
   padding: 0 8px;
+  color: ${props => props.theme.accent};
 
   &:disabled {
     color: ${props => props.theme.disabledText};

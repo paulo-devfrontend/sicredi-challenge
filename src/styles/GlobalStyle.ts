@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { easing } from './animation';
+
 export default createGlobalStyle`
   * {
     margin: 0;
@@ -23,5 +25,6 @@ export default createGlobalStyle`
 
   body {
     background-color: ${props => props.theme.background};
+    transition: background-color 150ms ${easing.standard};
   }
 `;

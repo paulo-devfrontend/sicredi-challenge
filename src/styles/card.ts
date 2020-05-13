@@ -31,4 +31,10 @@ export default {
     ${typography.subtitle_2}
     color: ${props => props.theme.secondaryText};
   `,
+  actions: css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px;
+  `,
 };

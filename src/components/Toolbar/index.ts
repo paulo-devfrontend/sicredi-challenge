@@ -14,12 +14,9 @@ export const Toolbar = styled.header<ToolbarProps>`
   left: 0;
   width: 100%;
   height: 56px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
-  overflow: hidden;
-
   background-color: ${props => props.theme.surface};
   color: ${props => props.theme.primaryText};
   ${shadow(4)}
@@ -47,6 +44,7 @@ export const ToolbarActions = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
 
   > ${IconButton} {
     margin: 8px;

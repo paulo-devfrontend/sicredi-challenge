@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import { MdBrightness4 } from 'react-icons/md';
 
 import { IconButton } from 'components/Button';
@@ -8,20 +8,15 @@ import {
   ToolbarActions,
 } from 'components/Toolbar';
 
+import useDarkMode from 'hooks/useDarkMode';
 import useTooltip from 'hooks/useTooltip';
 
 import Form from './Form';
 import { Page, Card, Header, Headline, Title, Tagline, TopBar } from './style';
 
-import AppContext from 'AppContext';
-
 export default function () {
-  const { switchTheme, theme } = useContext(AppContext);
-
-  const nightLight = useCallback(() => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    switchTheme(newTheme);
-  }, [theme, switchTheme]);
+  const { tooltip } = useTooltip();
+  const { inDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <Page>
@@ -32,9 +27,9 @@ export default function () {
           </ToolbarContent>
           <ToolbarActions>
             <IconButton
-              onClick={nightLight}
-              isActive={theme === 'dark'}
-              ref={useTooltip('Night light')}
+              onClick={toggleDarkMode}
+              isActive={inDarkMode}
+              ref={tooltip('Dark mode')}
             >
               <MdBrightness4 />
             </IconButton>

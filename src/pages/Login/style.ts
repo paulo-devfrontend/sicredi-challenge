@@ -21,6 +21,7 @@ export const Page = styled.article`
   background-color: ${props => props.theme.accent};
   background-image: url(${BgImage});
   background-size: cover;
+  background-position: center;
   ${gridContainer}
 `;
 
