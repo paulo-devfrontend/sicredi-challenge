@@ -9,7 +9,7 @@ interface Props {
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   onFocus?: React.FocusEventHandler<HTMLTextAreaElement>;
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
-  defaultValue?: string;
+  defaultValue?: string | string[];
   className?: string;
   style?: React.CSSProperties;
   hasError?: boolean;

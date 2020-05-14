@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { shadow, easing } from 'styles';
 
-export const FAB = styled.button`
+const FAB = styled.button`
   position: fixed;
   right: 16px;
   bottom: 16px;
@@ -27,3 +27,5 @@ export const FAB = styled.button`
     height: 24px;
   }
 `;
+
+export default FAB;

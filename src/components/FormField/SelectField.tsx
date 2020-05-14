@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { MdArrowDropDown } from 'react-icons/md';
 
 import {
@@ -58,6 +58,10 @@ export default React.forwardRef(
       },
       [self],
     );
+
+    useEffect(() => {
+      setIsFilled(defaultValue !== undefined && defaultValue.length > 0);
+    }, [defaultValue]);
 
     return (
       <Container

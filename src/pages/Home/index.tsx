@@ -15,7 +15,7 @@ import Dragons from 'model/Dragons';
 
 import useTooltip from 'hooks/useTooltip';
 
-import { FAB } from 'pages/components/FAB';
+import FAB from 'pages/components/FAB';
 import Page from 'pages/components/PrivatePage';
 
 import {
@@ -81,7 +81,10 @@ export default function () {
                   Detail
                 </TextButton>
                 <CardActionsIcon>
-                  <IconButton ref={tooltip('Edit')}>
+                  <IconButton
+                    ref={tooltip('Edit')}
+                    onClick={() => history.push(`/edit/${dragon.id}`)}
+                  >
                     <MdEdit />
                   </IconButton>
                   <IconButton ref={tooltip('Remove')}>

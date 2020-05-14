@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container, Input, Dash, Label } from './style';
 
@@ -37,6 +37,10 @@ export default React.forwardRef(
     const [isFilled, setIsFilled] = useState<boolean>(
       defaultValue !== undefined && defaultValue.length > 0,
     );
+
+    useEffect(() => {
+      setIsFilled(defaultValue !== undefined && defaultValue.length > 0);
+    }, [defaultValue]);
 
     return (
       <Container

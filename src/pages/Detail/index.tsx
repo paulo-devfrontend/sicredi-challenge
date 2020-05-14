@@ -1,10 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { MdEdit } from 'react-icons/md';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { Dragon } from 'api';
 
 import Dragons from 'model/Dragons';
 
+import FAB from 'pages/components/FAB';
 import Page from 'pages/components/PrivatePage';
 
 import {
@@ -20,6 +22,7 @@ import {
 } from './style';
 
 export default function () {
+  const history = useHistory();
   const { id } = useParams();
   const [dragon, setDragon] = useState<Dragon>();
   const pageTitle = useMemo(() => {
@@ -64,6 +67,9 @@ export default function () {
           </Description>
         </Info>
       </Card>
+      <FAB onClick={() => history.push(`/edit/${id}`)}>
+        <MdEdit />
+      </FAB>
     </Page>
   );
 }

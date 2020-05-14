@@ -18,8 +18,8 @@ export type DragonList = Dragon[];
 
 export default {
   list: () => get<any, DragonList>('/'),
-  detail: (id: number) => get<any, Dragon>(`/${id}`),
+  detail: (id: string) => get<any, Dragon>(`/${id}`),
   create: (data: DragonData) => post('/', data),
-  edit: (id: number, data: DragonData) => put(`/${id}`, data),
-  remove: (id: number) => del(`/${id}`),
+  edit: (id: string, data: DragonData) => put(`/${id}`, data),
+  remove: (id: string) => del(`/${id}`),
 };

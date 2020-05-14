@@ -48,7 +48,20 @@ class DragonsModel {
   public async save(data: DragonData) {
     const [error, result] = await API.create(data);
     if (error) return false;
-    if (result) return true;
+    if (result) {
+      await this.update();
+      return true;
+    }
+    return false;
+  }
+
+  public async edit(id: string, data: DragonData) {
+    const [error, result] = await API.edit(id, data);
+    if (error) return false;
+    if (result) {
+      await this.update();
+      return true;
+    }
     return false;
   }
 }
