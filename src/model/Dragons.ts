@@ -64,6 +64,16 @@ class DragonsModel {
     }
     return false;
   }
+
+  public async remove(id: string) {
+    const [error, result] = await API.remove(id);
+    if (error) return false;
+    if (result) {
+      await this.update();
+      return true;
+    }
+    return false;
+  }
 }
 
 export default new DragonsModel();
