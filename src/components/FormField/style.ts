@@ -1,10 +1,13 @@
 import styled from 'styled-components';
-import { easing, typography } from 'styles';
+import { easing, typography, card } from 'styles';
+
+import { IconButton } from 'components/Button';
 
 interface FieldProps {
   hasFoucs?: boolean;
   isFilled?: boolean;
   hasError?: boolean;
+  isMultiline?: boolean;
 }
 
 interface InputProps {
@@ -17,7 +20,10 @@ export const Container = styled.label<FieldProps>`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  height: 56px;
+  height: ${props => {
+    if (props.isMultiline) return '104px';
+    return '56px';
+  }};
   padding: 0 12px;
   margin: 8px 0;
   border-radius: 4px 4px 0 0;
@@ -39,22 +45,35 @@ export const Input = styled.input<InputProps>`
   ${typography.body_1}
 `;
 
+export const Multiline = styled.textarea<InputProps>`
+  flex: auto;
+  height: 72px;
+  color: ${props => props.theme.primaryText};
+  border: none;
+  background-color: transparent;
+  caret-color: ${props => props.theme.accent};
+  margin-top: ${props => props.hasLabel && '12px'};
+  ${typography.body_1}
+  resize: none;
+`;
+
 export const Label = styled.span<FieldProps>`
   ${props => {
-    if (props.hasFoucs || props.isFilled) {
+    if (props.hasFoucs || props.isFilled || props.isMultiline) {
       return typography.caption;
     }
     return typography.body_1;
   }}
   position: absolute;
-  top: ${props => (props.hasFoucs || props.isFilled ? '16px' : '50%')};
+  top: ${props =>
+    props.hasFoucs || props.isFilled || props.isMultiline ? '16px' : '50%'};
   left: 12px;
   line-height: 16px;
   margin-top: -8px;
   transition-property: all;
   transition-duration: 0.1s;
   transition-timing-function: ${props => {
-    if (props.hasFoucs || props.isFilled) {
+    if (props.hasFoucs || props.isFilled || props.isMultiline) {
       return easing.accelerate;
     }
     return easing.decelerate;
@@ -114,4 +133,98 @@ export const HelperText = styled.p<HelperTextProps>`
   line-height: 1em;
   padding: 0 12px;
   margin-bottom: 4px;
+`;
+
+interface DropDownProps {
+  isOpen?: boolean;
+}
+
+export const DropDownIcon = styled(IconButton)<DropDownProps>`
+  color: ${props => {
+    if (props.isActive) return props.theme.accent;
+    return props.theme.primaryText;
+  }};
+  transition: transform 150ms ${easing.standard};
+  transform: ${props => {
+    if (props.isOpen) return 'rotate(180deg)';
+    return 'rotate(0)';
+  }};
+`;
+
+export const DropDownMenu = styled.div<DropDownProps>`
+  ${card.container}
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  transition-property: transform;
+  transition-duration: 150ms;
+  transition-timing-function: ${props => {
+    if (props.isOpen) return easing.decelerate;
+    return easing.accelerate;
+  }};
+  transform-origin: top center;
+  transform: ${props => {
+    if (props.isOpen) return 'scaleY(1)';
+    return 'scaleY(0)';
+  }};
+  z-index: 8;
+`;
+
+interface OptionProps {
+  isActive?: boolean;
+}
+
+export const Option = styled.button<OptionProps>`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  color: ${props => {
+    if (props.isActive) return props.theme.disabledText;
+    return props.theme.primaryText;
+  }};
+  background-color: ${props => {
+    if (props.isActive) return props.theme.focus.surface;
+    return 'transparent';
+  }};
+  border: none;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    transition: background-color 150ms ${easing.standard};
+  }
+
+  &:hover::before {
+    background-color: ${props => props.theme.hover.surface};
+  }
+
+  &:focus::before {
+    background-color: ${props => props.theme.focus.surface};
+  }
+`;
+
+export const BackDrop = styled.div<DropDownProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: ${props => {
+    if (props.isOpen) return 'all';
+    return 'none';
+  }};
+  z-index: 7;
 `;

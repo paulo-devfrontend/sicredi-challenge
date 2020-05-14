@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MdDeleteForever, MdEdit } from 'react-icons/md';
+import { MdDeleteForever, MdEdit, MdAdd } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 
 import { TextButton, IconButton } from 'components/Button';
@@ -15,6 +15,7 @@ import Dragons from 'model/Dragons';
 
 import useTooltip from 'hooks/useTooltip';
 
+import { FAB } from 'pages/components/FAB';
 import Page from 'pages/components/PrivatePage';
 
 import {
@@ -91,6 +92,9 @@ export default function () {
             </Card>
           ))}
       </List>
+      <FAB onClick={() => history.push('/create')}>
+        <MdAdd />
+      </FAB>
     </Page>
   );
 }

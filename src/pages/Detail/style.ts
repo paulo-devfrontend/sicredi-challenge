@@ -72,4 +72,5 @@ export const Description = styled.dd`
   ${typography.body_1}
   color: ${props => props.theme.primaryText};
   line-height: 1.5;
+  white-space: pre-line;
 `;

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 
-import { Container, Input, Dash, Label } from './style';
-
-type TextFieldTypes = 'text' | 'password' | 'email' | 'url';
+import { Container, Multiline, Dash, Label } from './style';
 
 interface Props {
   name?: string;
-  type?: TextFieldTypes;
   label?: string;
   placeholder?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>;
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
   defaultValue?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -19,10 +16,9 @@ interface Props {
 }
 
 export default React.forwardRef(
-  (props: Props, ref: React.Ref<HTMLInputElement>) => {
+  (props: Props, ref: React.Ref<HTMLTextAreaElement>) => {
     const {
       name,
-      type = 'text',
       placeholder,
       label,
       onChange,
@@ -44,11 +40,11 @@ export default React.forwardRef(
         style={style}
         hasFoucs={hasFocus}
         isFilled={isFilled}
+        isMultiline
       >
-        <Input
+        <Multiline
           ref={ref}
           name={name}
-          type={type}
           placeholder={placeholder}
           defaultValue={defaultValue}
           onChange={event => {
@@ -66,7 +62,12 @@ export default React.forwardRef(
           hasLabel={label !== undefined}
         />
         {label && (
-          <Label hasFoucs={hasFocus} isFilled={isFilled} hasError={hasError}>
+          <Label
+            hasFoucs={hasFocus}
+            isFilled={isFilled}
+            hasError={hasError}
+            isMultiline
+          >
             {label}
           </Label>
         )}

@@ -9,6 +9,7 @@ import {
 
 import User from 'model/Auth';
 
+import CreatePage from 'pages/Create';
 import DetailPage from 'pages/Detail';
 import HomePage from 'pages/Home';
 import LoginPage from 'pages/Login';
@@ -47,6 +48,9 @@ export default function () {
         </PrivateRoute>
         <PrivateRoute path="/detail/:id">
           <DetailPage />
+        </PrivateRoute>
+        <PrivateRoute path="/create">
+          <CreatePage />
         </PrivateRoute>
         <Route path="/login">
           <LoginPage />

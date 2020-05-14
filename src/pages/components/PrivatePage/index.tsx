@@ -23,7 +23,7 @@ import {
   UserData,
   UserName,
   UserActions,
-  ClickOut,
+  BackDrop,
 } from './style';
 
 interface Props {
@@ -75,7 +75,7 @@ export default function ({ title, children, backButton }: Props) {
               <MdAccountCircle />
             </IconButton>
             {userMenuIsOpen && (
-              <ClickOut
+              <BackDrop
                 onClick={() => toggleUserMenu(false)}
                 isOpen={userMenuIsOpen}
               />

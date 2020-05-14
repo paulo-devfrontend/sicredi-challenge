@@ -1,4 +1,4 @@
-import API, { DragonList } from 'api';
+import API, { DragonList, DragonData } from 'api';
 
 const STORAGE = '_dragons';
 
@@ -38,6 +38,18 @@ class DragonsModel {
 
   public byId(id: string) {
     return this.data.find(dragon => dragon.id === id);
+  }
+
+  public availableTypes() {
+    const _types = new Set(this.data.map(entry => entry.type));
+    return Array.from(_types);
+  }
+
+  public async save(data: DragonData) {
+    const [error, result] = await API.create(data);
+    if (error) return false;
+    if (result) return true;
+    return false;
   }
 }
 

@@ -2,13 +2,11 @@ import { get, post, put, del } from './method';
 
 type DateJSONString = string;
 
-export type DragonType = 'epic' | 'rare' | 'legendary';
-
 export interface DragonData {
   name: string;
-  type: DragonType;
-  histories: string[];
-  imageUrl: string;
+  type: string;
+  histories?: string[] | string;
+  imageUrl?: string;
 }
 
 export interface Dragon extends DragonData {

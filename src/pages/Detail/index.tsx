@@ -58,8 +58,9 @@ export default function () {
           </Description>
           <Term>History</Term>
           <Description>
-            {Array.isArray(dragon.histories) &&
-              dragon.histories.map((entry, i) => <p key={i}>{entry}</p>)}
+            {Array.isArray(dragon.histories)
+              ? dragon.histories.join('\n')
+              : dragon.histories}
           </Description>
         </Info>
       </Card>
